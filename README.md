@@ -9,8 +9,7 @@ YZY AI Build
 
 最大的亮点是可以自动化部署Openfalcon，并自动监控。
 
-Useage
-===
+## Useage
 
 ### 快速部署
 修改`main.conf`文件中的内容，然后运行`./configure start`
@@ -22,8 +21,7 @@ Useage
 直接运行`./configure`，进入交互界面，根据提示一个一个完成一些具体参数的设定，
 然后自动进行安装部署的操作。
 
-parameter
-===
+## Parameter
 
 控制服务器一般是运行该程序的机器，可以理解为本机
 
@@ -44,8 +42,7 @@ parameter
 | mysql_server | 设定mysql服务器的个数 | 0 |
 | falcon_server | 设定open-falcon服务是否部署 | 0:不启动 、 1:启动 |
 
-lime light
-===
+## lime light
 
 1. 如果实际服务器个数不足，会报错退出，如果实际服务器超出，则只会将没有分配到服务的服务器完成pxe装机而已
 2. 运行是基于从裸机开始部署，所以最好完整使用，防止运行出现
