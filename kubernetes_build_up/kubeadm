@@ -1,6 +1,0 @@
-# copy file config.yaml 
-docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.1 ; docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.1 k8s.gcr.io/pause:3.1
-kubeadm init --config config.yaml
-  mkdir -p $HOME/.kube; rm -f $HOME/.kube/config; sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config;  sudo chown $(id -u):$(id -g) $HOME/.kube/config
-scp -r /etc/kubernetes/pki  172.16.0.216:/etc/kubernetes/
-scp -r /etc/kubernetes/pki  172.16.0.217:/etc/kubernetes/

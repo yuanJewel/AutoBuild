@@ -1,3 +1,0 @@
-docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.7.0
-docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.7.0 gcr.io/kubernetes-helm/tiller:v2.7.0
-docker rmi registry.cn-hangzhou.aliyuncs.com/google_containers/tiller:v2.7.0
