@@ -1,0 +1,4 @@
+ip=$(ifconfig | awk '/inet/{print $2}' | sed -n '1p')
+ip_name=$(ifconfig | sed -n "1p" | awk -F: '{print $1}')
+nmcli connection modify $ip_name ipv4.method manual ipv4.addresses $ip/24 connection.autoconnect yes
+

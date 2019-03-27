@@ -1,0 +1,47 @@
+#!/bin/bash
+
+echo $0 | grep '/' &>/dev/null
+if [ $? != 0 ];then
+  path=$PWD
+else
+  path=${0%/*}
+  echo $path | grep '^/' &>/dev/null
+  if [ $? -ne 0 ];then
+    [ $path == '.' ] && path=$PWD || path=$PWD/$path
+  fi
+fi
+path=/nginx/
+cd $path
+
+yum install -y nginx-1.12.2-7.x86_64.rpm php-fpm-5.4.16-42.el7.x86_64.rpm
+# 开启动静分离
+sed -i '65,71s/#//' /etc/nginx/main.conf
+sed -i '/scripts$fastcgi_script_names/d' /etc/nginx/main.conf
+sed -i 's/fastcgi_params/fastcgi.conf/' /etc/nginx/main.conf
+sed -i 's/index.html index.htm/index.php index.html index.htm/' /etc/nginx/main.conf
+
+# 隐藏版本号
+sed -i '/http {/a\    server_tokens off;' /etc/nginx/main.conf
+
+# 拒绝非法请求
+sed -i '/#charset/a\        }' /etc/nginx/main.conf
+sed -i '/#charset/a\            return 444;' /etc/nginx/main.conf
+sed -i '/#charset/a\        if ($request_method !~ ^(GET|POST)$){' /etc/nginx/main.conf
+
+# 限制并发个数
+sed -i '/default_type/a\    limit_req_zone $binary_remote_addr zone=one:10m rate=1r/s;' /etc/nginx/main.conf
+sed -i '/#charset/a\        limit_req zone=one burst=5;' /etc/nginx/main.conf
+
+systemctl restart php-fpm
+systemctl enable php-fpm
+
+echo '
+<?php
+  phpinfo()
+?>
+' > /var/nginx/html/index.php
+nginx start
+echo 'nginx start' > /etc/rc.d/rc.local
+chmod +x /etc/rc.d/rc.local
+cpu=4
+source $path/nginx_upload_works $cpu

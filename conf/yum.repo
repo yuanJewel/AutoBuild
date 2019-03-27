@@ -1,0 +1,5 @@
+[rhel]
+name=yzy_yum
+baseurl=http://IP/rhel7
+enabled=1
+gpgcheck=0

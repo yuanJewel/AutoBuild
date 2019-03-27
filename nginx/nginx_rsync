@@ -1,0 +1,74 @@
+#!/bin/bash
+jindu(){
+  while :
+  do
+    echo -n '#'
+    sleep 0.25
+  done
+}
+
+[ $(yum repolist | awk '/repolist/{print$2}' | sed 's/,//') -eq 0 ] && echo 'your yum has problem' && exit 2
+yum install -y expect gcc make &>/dev/null
+[ $# -ne 1 ] && echo 'Error: you can try nginx_rsync ip' && exit 3
+# this is the file's document
+echo $0 | grep '/' &>/dev/null
+if [ $? != 0 ];then
+  path=$PWD
+else
+  path=${0%/*}
+  echo $path | grep '^/' &>/dev/null
+  if [ $? -ne 0 ];then
+    [ $path == '.' ] && path=$PWD || path=$PWD/$path
+  fi
+fi
+path=/nginx/
+cd $path
+
+if [ $1 == 0 ];then
+  jindu &
+  tar -xf inotify-tools-3.13.tar.gz
+  cd inotify-tools-3.13
+  ./configure &>/dev/null && make &>/dev/null && make install &>/dev/null
+  cd ..
+  rm -rf inotify-tools-3.13
+  kill $!
+  exit
+fi
+ip=$1
+Watch_Root=/var/nginx/
+Watch_etc=/etc/nginx/
+if [ ! -f ~/.ssh/id_rsa ];then
+
+expect << EOF
+spawn ssh-keygen
+expect "key"  {send "\n"}
+expect "passphrase" {send "\n"}
+expect "passphrase" {send "\n"}
+expect "passphrase" {send "\n"}
+expect "key" {send "\n"}
+EOF
+
+  echo 'you need a key to ssh, now I am making'
+fi
+expect <<EOF
+spawn ssh-copy-id -f root@$ip
+expect connecting  {send yes\n}
+expect password {send Yu06078\n}
+expect password {send Yu06078\n}
+
+EOF
+Same_Root=root@$ip:$Watch_Root
+Same_etc=root@$ip:$Watch_etc
+rsync --delete -az $Watch_Root $Same_Root
+rsync --delete -az $Watch_etc $Same_etc
+
+while inotifywait -rqq $Watch_Root
+do
+  rsync --delete -az $Watch_Root $Same_Root
+done &
+while inotifywait -rqq $Watch_etc
+do
+  rsync --delete -az $Watch_etc $Same_etc
+done &
+
+echo -e \n 'Start rsync is uccssful'

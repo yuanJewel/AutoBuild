@@ -1,0 +1,236 @@
+已加载插件：fastestmirror, langpacks
+Loading mirror speeds from cached hostfile
+ * base: mirrors.aliyun.com
+ * epel: mirrors.aliyun.com
+ * extras: mirrors.huaweicloud.com
+ * updates: mirrors.aliyun.com
+ * webtatic: us-east.repo.webtatic.com
+软件包 expect-5.45-14.el7_1.x86_64 已安装并且是最新版本
+无须任何处理
+spawn ansible master,slaver -m authorized_key -a user=root exclusive=true manage_dir=true key='ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDpi6nvOu+b30HxrmyL5vdvrdW43kTQ9kBD0z0APctUhp4oRd5hw4Y1RqQy5ppgVnI8FFUkOpFwNVW4QnpHe60gjUACfselIPGnNWIvgKe/YWveoeQw1w5bVeJa4+hd81P23MPs9AovQKs29HM3BB446bbYUFDytmm3f/aCldYncF0u206puDAe6d73IzuZgjBbEhZ7u7yAFB95X/Rv1R1t1XTY7X00rwRHZC2k9w6I1RBz5OEnP2xuBGXNVG16xIDmMGBGw8Y97aKKAEqqX0HgIp7DbNRIZ9UbrkEsmQ5ognMORzCZke70+iIoHkm37dOIot72r5mj0/YK66K8cQc1 root@jh-vpn' -k -v
+[0;34mUsing /etc/ansible/ansible.cfg as config file[0m
+SSH password: 
+[0;33m172.16.0.215 | SUCCESS => {[0m
+[0;33m    "changed": true, [0m
+[0;33m    "comment": null, [0m
+[0;33m    "exclusive": true, [0m
+[0;33m    "key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDpi6nvOu+b30HxrmyL5vdvrdW43kTQ9kBD0z0APctUhp4oRd5hw4Y1RqQy5ppgVnI8FFUkOpFwNVW4QnpHe60gjUACfselIPGnNWIvgKe/YWveoeQw1w5bVeJa4+hd81P23MPs9AovQKs29HM3BB446bbYUFDytmm3f/aCldYncF0u206puDAe6d73IzuZgjBbEhZ7u7yAFB95X/Rv1R1t1XTY7X00rwRHZC2k9w6I1RBz5OEnP2xuBGXNVG16xIDmMGBGw8Y97aKKAEqqX0HgIp7DbNRIZ9UbrkEsmQ5ognMORzCZke70+iIoHkm37dOIot72r5mj0/YK66K8cQc1 root@jh-vpn", [0m
+[0;33m    "key_options": null, [0m
+[0;33m    "keyfile": "/root/.ssh/authorized_keys", [0m
+[0;33m    "manage_dir": true, [0m
+[0;33m    "path": null, [0m
+[0;33m    "state": "present", [0m
+[0;33m    "unique": false, [0m
+[0;33m    "user": "root", [0m
+[0;33m    "validate_certs": true[0m
+[0;33m}[0m
+[0;33m172.16.0.216 | SUCCESS => {[0m
+[0;33m    "changed": true, [0m
+[0;33m    "comment": null, [0m
+[0;33m    "exclusive": true, [0m
+[0;33m    "key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDpi6nvOu+b30HxrmyL5vdvrdW43kTQ9kBD0z0APctUhp4oRd5hw4Y1RqQy5ppgVnI8FFUkOpFwNVW4QnpHe60gjUACfselIPGnNWIvgKe/YWveoeQw1w5bVeJa4+hd81P23MPs9AovQKs29HM3BB446bbYUFDytmm3f/aCldYncF0u206puDAe6d73IzuZgjBbEhZ7u7yAFB95X/Rv1R1t1XTY7X00rwRHZC2k9w6I1RBz5OEnP2xuBGXNVG16xIDmMGBGw8Y97aKKAEqqX0HgIp7DbNRIZ9UbrkEsmQ5ognMORzCZke70+iIoHkm37dOIot72r5mj0/YK66K8cQc1 root@jh-vpn", [0m
+[0;33m    "key_options": null, [0m
+[0;33m    "keyfile": "/root/.ssh/authorized_keys", [0m
+[0;33m    "manage_dir": true, [0m
+[0;33m    "path": null, [0m
+[0;33m    "state": "present", [0m
+[0;33m    "unique": false, [0m
+[0;33m    "user": "root", [0m
+[0;33m    "validate_certs": true[0m
+[0;33m}[0m
+[0;33m172.16.0.219 | SUCCESS => {[0m
+[0;33m    "changed": true, [0m
+[0;33m    "comment": null, [0m
+[0;33m    "exclusive": true, [0m
+[0;33m    "key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDpi6nvOu+b30HxrmyL5vdvrdW43kTQ9kBD0z0APctUhp4oRd5hw4Y1RqQy5ppgVnI8FFUkOpFwNVW4QnpHe60gjUACfselIPGnNWIvgKe/YWveoeQw1w5bVeJa4+hd81P23MPs9AovQKs29HM3BB446bbYUFDytmm3f/aCldYncF0u206puDAe6d73IzuZgjBbEhZ7u7yAFB95X/Rv1R1t1XTY7X00rwRHZC2k9w6I1RBz5OEnP2xuBGXNVG16xIDmMGBGw8Y97aKKAEqqX0HgIp7DbNRIZ9UbrkEsmQ5ognMORzCZke70+iIoHkm37dOIot72r5mj0/YK66K8cQc1 root@jh-vpn", [0m
+[0;33m    "key_options": null, [0m
+[0;33m    "keyfile": "/root/.ssh/authorized_keys", [0m
+[0;33m    "manage_dir": true, [0m
+[0;33m    "path": null, [0m
+[0;33m    "state": "present", [0m
+[0;33m    "unique": false, [0m
+[0;33m    "user": "root", [0m
+[0;33m    "validate_certs": true[0m
+[0;33m}[0m
+[0;33m172.16.0.217 | SUCCESS => {[0m
+[0;33m    "changed": true, [0m
+[0;33m    "comment": null, [0m
+[0;33m    "exclusive": true, [0m
+[0;33m    "key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDpi6nvOu+b30HxrmyL5vdvrdW43kTQ9kBD0z0APctUhp4oRd5hw4Y1RqQy5ppgVnI8FFUkOpFwNVW4QnpHe60gjUACfselIPGnNWIvgKe/YWveoeQw1w5bVeJa4+hd81P23MPs9AovQKs29HM3BB446bbYUFDytmm3f/aCldYncF0u206puDAe6d73IzuZgjBbEhZ7u7yAFB95X/Rv1R1t1XTY7X00rwRHZC2k9w6I1RBz5OEnP2xuBGXNVG16xIDmMGBGw8Y97aKKAEqqX0HgIp7DbNRIZ9UbrkEsmQ5ognMORzCZke70+iIoHkm37dOIot72r5mj0/YK66K8cQc1 root@jh-vpn", [0m
+[0;33m    "key_options": null, [0m
+[0;33m    "keyfile": "/root/.ssh/authorized_keys", [0m
+[0;33m    "manage_dir": true, [0m
+[0;33m    "path": null, [0m
+[0;33m    "state": "present", [0m
+[0;33m    "unique": false, [0m
+[0;33m    "user": "root", [0m
+[0;33m    "validate_certs": true[0m
+[0;33m}[0m
+[0;33m172.16.0.218 | SUCCESS => {[0m
+[0;33m    "changed": true, [0m
+[0;33m    "comment": null, [0m
+[0;33m    "exclusive": true, [0m
+[0;33m    "key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDpi6nvOu+b30HxrmyL5vdvrdW43kTQ9kBD0z0APctUhp4oRd5hw4Y1RqQy5ppgVnI8FFUkOpFwNVW4QnpHe60gjUACfselIPGnNWIvgKe/YWveoeQw1w5bVeJa4+hd81P23MPs9AovQKs29HM3BB446bbYUFDytmm3f/aCldYncF0u206puDAe6d73IzuZgjBbEhZ7u7yAFB95X/Rv1R1t1XTY7X00rwRHZC2k9w6I1RBz5OEnP2xuBGXNVG16xIDmMGBGw8Y97aKKAEqqX0HgIp7DbNRIZ9UbrkEsmQ5ognMORzCZke70+iIoHkm37dOIot72r5mj0/YK66K8cQc1 root@jh-vpn", [0m
+[0;33m    "key_options": null, [0m
+[0;33m    "keyfile": "/root/.ssh/authorized_keys", [0m
+[0;33m    "manage_dir": true, [0m
+[0;33m    "path": null, [0m
+[0;33m    "state": "present", [0m
+[0;33m    "unique": false, [0m
+[0;33m    "user": "root", [0m
+[0;33m    "validate_certs": true[0m
+[0;33m}[0m
+[0;33m172.16.0.220 | SUCCESS => {[0m
+[0;33m    "changed": true, [0m
+[0;33m    "comment": null, [0m
+[0;33m    "exclusive": true, [0m
+[0;33m    "key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDpi6nvOu+b30HxrmyL5vdvrdW43kTQ9kBD0z0APctUhp4oRd5hw4Y1RqQy5ppgVnI8FFUkOpFwNVW4QnpHe60gjUACfselIPGnNWIvgKe/YWveoeQw1w5bVeJa4+hd81P23MPs9AovQKs29HM3BB446bbYUFDytmm3f/aCldYncF0u206puDAe6d73IzuZgjBbEhZ7u7yAFB95X/Rv1R1t1XTY7X00rwRHZC2k9w6I1RBz5OEnP2xuBGXNVG16xIDmMGBGw8Y97aKKAEqqX0HgIp7DbNRIZ9UbrkEsmQ5ognMORzCZke70+iIoHkm37dOIot72r5mj0/YK66K8cQc1 root@jh-vpn", [0m
+[0;33m    "key_options": null, [0m
+[0;33m    "keyfile": "/root/.ssh/authorized_keys", [0m
+[0;33m    "manage_dir": true, [0m
+[0;33m    "path": null, [0m
+[0;33m    "state": "present", [0m
+[0;33m    "unique": false, [0m
+[0;33m    "user": "root", [0m
+[0;33m    "validate_certs": true[0m
+[0;33m}[0m
+[0;33m172.16.0.223 | SUCCESS => {[0m
+[0;33m    "changed": true, [0m
+[0;33m    "comment": null, [0m
+[0;33m    "exclusive": true, [0m
+[0;33m    "key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDpi6nvOu+b30HxrmyL5vdvrdW43kTQ9kBD0z0APctUhp4oRd5hw4Y1RqQy5ppgVnI8FFUkOpFwNVW4QnpHe60gjUACfselIPGnNWIvgKe/YWveoeQw1w5bVeJa4+hd81P23MPs9AovQKs29HM3BB446bbYUFDytmm3f/aCldYncF0u206puDAe6d73IzuZgjBbEhZ7u7yAFB95X/Rv1R1t1XTY7X00rwRHZC2k9w6I1RBz5OEnP2xuBGXNVG16xIDmMGBGw8Y97aKKAEqqX0HgIp7DbNRIZ9UbrkEsmQ5ognMORzCZke70+iIoHkm37dOIot72r5mj0/YK66K8cQc1 root@jh-vpn", [0m
+[0;33m    "key_options": null, [0m
+[0;33m    "keyfile": "/root/.ssh/authorized_keys", [0m
+[0;33m    "manage_dir": true, [0m
+[0;33m    "path": null, [0m
+[0;33m    "state": "present", [0m
+[0;33m    "unique": false, [0m
+[0;33m    "user": "root", [0m
+[0;33m    "validate_certs": true[0m
+[0;33m}[0m
+[0;33m172.16.0.224 | SUCCESS => {[0m
+[0;33m    "changed": true, [0m
+[0;33m    "comment": null, [0m
+[0;33m    "exclusive": true, [0m
+[0;33m    "key": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDpi6nvOu+b30HxrmyL5vdvrdW43kTQ9kBD0z0APctUhp4oRd5hw4Y1RqQy5ppgVnI8FFUkOpFwNVW4QnpHe60gjUACfselIPGnNWIvgKe/YWveoeQw1w5bVeJa4+hd81P23MPs9AovQKs29HM3BB446bbYUFDytmm3f/aCldYncF0u206puDAe6d73IzuZgjBbEhZ7u7yAFB95X/Rv1R1t1XTY7X00rwRHZC2k9w6I1RBz5OEnP2xuBGXNVG16xIDmMGBGw8Y97aKKAEqqX0HgIp7DbNRIZ9UbrkEsmQ5ognMORzCZke70+iIoHkm37dOIot72r5mj0/YK66K8cQc1 root@jh-vpn", [0m
+[0;33m    "key_options": null, [0m
+[0;33m    "keyfile": "/root/.ssh/authorized_keys", [0m
+[0;33m    "manage_dir": true, [0m
+[0;33m    "path": null, [0m
+[0;33m    "state": "present", [0m
+[0;33m    "unique": false, [0m
+[0;33m    "user": "root", [0m
+[0;33m    "validate_certs": true[0m
+[0;33m}[0m
+172.16.0.217 | SUCCESS => {
+    "changed": true, 
+    "checksum": "255ba1f5f6700360408a4bb63b036656ebb6ffc1", 
+    "dest": "/etc/hosts", 
+    "gid": 0, 
+    "group": "root", 
+    "md5sum": "0cb292ec54f2175c78aa0a787874b3bd", 
+    "mode": "0644", 
+    "owner": "root", 
+    "size": 861, 
+    "src": "/root/.ansible/tmp/ansible-tmp-1546946235.17-146568258633120/source", 
+    "state": "file", 
+    "uid": 0
+}
+172.16.0.216 | SUCCESS => {
+    "changed": true, 
+    "checksum": "255ba1f5f6700360408a4bb63b036656ebb6ffc1", 
+    "dest": "/etc/hosts", 
+    "gid": 0, 
+    "group": "root", 
+    "md5sum": "0cb292ec54f2175c78aa0a787874b3bd", 
+    "mode": "0644", 
+    "owner": "root", 
+    "size": 861, 
+    "src": "/root/.ansible/tmp/ansible-tmp-1546946235.17-102126804894004/source", 
+    "state": "file", 
+    "uid": 0
+}
+172.16.0.215 | SUCCESS => {
+    "changed": true, 
+    "checksum": "255ba1f5f6700360408a4bb63b036656ebb6ffc1", 
+    "dest": "/etc/hosts", 
+    "gid": 0, 
+    "group": "root", 
+    "md5sum": "0cb292ec54f2175c78aa0a787874b3bd", 
+    "mode": "0644", 
+    "owner": "root", 
+    "size": 861, 
+    "src": "/root/.ansible/tmp/ansible-tmp-1546946235.13-94534318370621/source", 
+    "state": "file", 
+    "uid": 0
+}
+172.16.0.218 | SUCCESS => {
+    "changed": true, 
+    "checksum": "255ba1f5f6700360408a4bb63b036656ebb6ffc1", 
+    "dest": "/etc/hosts", 
+    "gid": 0, 
+    "group": "root", 
+    "md5sum": "0cb292ec54f2175c78aa0a787874b3bd", 
+    "mode": "0644", 
+    "owner": "root", 
+    "size": 861, 
+    "src": "/root/.ansible/tmp/ansible-tmp-1546946235.2-158688551333579/source", 
+    "state": "file", 
+    "uid": 0
+}
+172.16.0.219 | SUCCESS => {
+    "changed": true, 
+    "checksum": "255ba1f5f6700360408a4bb63b036656ebb6ffc1", 
+    "dest": "/etc/hosts", 
+    "gid": 0, 
+    "group": "root", 
+    "md5sum": "0cb292ec54f2175c78aa0a787874b3bd", 
+    "mode": "0644", 
+    "owner": "root", 
+    "size": 861, 
+    "src": "/root/.ansible/tmp/ansible-tmp-1546946235.21-120246860482113/source", 
+    "state": "file", 
+    "uid": 0
+}
+172.16.0.224 | SUCCESS => {
+    "changed": true, 
+    "checksum": "255ba1f5f6700360408a4bb63b036656ebb6ffc1", 
+    "dest": "/etc/hosts", 
+    "gid": 0, 
+    "group": "root", 
+    "md5sum": "0cb292ec54f2175c78aa0a787874b3bd", 
+    "mode": "0644", 
+    "owner": "root", 
+    "size": 861, 
+    "src": "/root/.ansible/tmp/ansible-tmp-1546946236.38-126367643937083/source", 
+    "state": "file", 
+    "uid": 0
+}
+172.16.0.223 | SUCCESS => {
+    "changed": true, 
+    "checksum": "255ba1f5f6700360408a4bb63b036656ebb6ffc1", 
+    "dest": "/etc/hosts", 
+    "gid": 0, 
+    "group": "root", 
+    "md5sum": "0cb292ec54f2175c78aa0a787874b3bd", 
+    "mode": "0644", 
+    "owner": "root", 
+    "size": 861, 
+    "src": "/root/.ansible/tmp/ansible-tmp-1546946236.37-151273295403489/source", 
+    "state": "file", 
+    "uid": 0
+}
+172.16.0.220 | SUCCESS => {
+    "changed": true, 
+    "checksum": "255ba1f5f6700360408a4bb63b036656ebb6ffc1", 
+    "dest": "/etc/hosts", 
+    "gid": 0, 
+    "group": "root", 
+    "md5sum": "0cb292ec54f2175c78aa0a787874b3bd", 
+    "mode": "0644", 
+    "owner": "root", 
+    "size": 861, 
+    "src": "/root/.ansible/tmp/ansible-tmp-1546946236.34-161679480754275/source", 
+    "state": "file", 
+    "uid": 0
+}

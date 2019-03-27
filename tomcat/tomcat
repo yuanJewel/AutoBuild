@@ -1,0 +1,63 @@
+#!/bin/bash
+path=/var/tomcat
+
+start(){
+
+  su -c $path/bin/startup.sh tomcat &>/dev/null
+  sleep 3
+  netstat -ntlup | grep java &>/dev/null
+  [ $? != 0 ] && echo -e "tomcat start has problem-------------------[\033[31mfalse\033[0m]" && exit 1
+  for i in {1..10}
+  do
+    netstat -ntlup | grep java | grep 8005 &>/dev/null
+    [ $? == 0 ] && echo -e "tomacat start is -------------------[\033[32mOK\033[0m]" && exit 0
+    mv /dev/random  /dev/random.bak
+    ln -s /dev/urandom  /dev/random
+    sleep 1
+  done
+  echo -e "tomcat has problem 8005 cannot start-------------------[\033[31mfalse\033[0m]" && exit 2
+
+}
+
+stop(){
+
+  $path/bin/shutdown.sh &> /dev/null
+  sleep 1
+  netstat -ntlup | grep java &>/dev/null
+  if [ $? != 0 ];then
+    echo -e "tomcat stop is  -------------------[\033[32mOK\033[0m]"
+  else
+    echo -e "tomcat stop is  -------------------[\033[31mfalse\033[0m]"
+  exit 3
+  fi
+}
+
+status(){
+  netstat -ntlup | grep java &>/dev/null
+  [ $? != 0 ] && echo -e "tomcat server has problem-------------------[\033[31mfalse\033[0m]" && exit 1
+  for i in {1..10} 
+  do
+    netstat -ntlup | grep java | grep 8005 &>/dev/null
+    [ $? == 0 ] && echo -e "tomacat server is -------------------[\033[32mOK\033[0m]" && exit 0
+    mv /dev/random  /dev/random.bak
+    ln -s /dev/urandom  /dev/random
+    sleep 1
+  done
+  echo -e "tomcat has problem 8005 cannot start-------------------[\033[31mfalse\033[0m]" && exit 2
+}
+
+choice=${1:-0}
+case $choice in
+start)
+  start ;;
+stop)
+  stop ;;
+restart)
+  stop
+  start ;;
+status)
+  status ;;
+*)
+  echo 'Error: you can try tomcat_server start|stop|restart'
+  exit 6
+esac

@@ -1,0 +1,11 @@
+
+mv -f /etc/systemd/system/etcd.service /usr/lib/systemd/system/
+systemctl daemon-reload
+systemctl enable etcd
+systemctl start etcd
+systemctl status etcd
+
+etcdctl --endpoints=https://172.16.0.215:2379,https://172.16.0.216:2379,https://172.16.0.217:2379 \
+  --ca-file=/etc/etcd/ssl/ca.pem \
+  --cert-file=/etc/etcd/ssl/etcd.pem \
+  --key-file=/etc/etcd/ssl/etcd-key.pem  cluster-health

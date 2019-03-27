@@ -1,0 +1,74 @@
+#!/bin/bash
+# Writer is Zhiyuan Yu , E-mail: luyu151111@163.com
+
+# get the scripts path
+path=${0%/*}
+echo $path | grep '^/' &>/dev/null
+if [ $? -ne 0 ];then
+    path=$(echo $path | sed -r 's/\.\/*//')
+    path=$PWD/$path
+fi
+path=$(echo $path | sed -r 's/\/{2,}/\//')
+cd $path
+
+# try to get 
+if [ $1 == 'start' &>/dev/null ] ;then
+    answer='yes'
+elif [ $1 == 'skip' &>/dev/null ] ;then
+    answer='start'
+else
+    read -p 'please tell yzy do you finish config in flie (yes,no):' answer   
+fi
+
+if [ $answer == 'no' ];then
+    echo 'now your IPs are: '$(ifconfig  | grep 'inet ' | awk '{print $2}')
+    for i in $( cat $path/main.conf | grep -v '^#' | awk -F= '{print $1}' | sed 's/ //g')
+    do
+        read -p 'please tell me '$i' is :' a
+        sed -i '/^'$i'/c'$i' = '$a $path/main.conf
+    done
+fi
+
+sleep_time=0.1
+go_start(){
+    dead=0
+    while [ $dead -le $1 ]
+    do
+        echo -e '-'"\b\c"
+        sleep ${sleep_time}s
+        echo -e '/'"\b\c"
+        sleep ${sleep_time}s
+        echo -e '|'"\b\c"
+        sleep ${sleep_time}s
+        echo -e '\\'"\b\c"
+        sleep ${sleep_time}s
+        dead=$[$dead+1]
+    done
+    echo -e ' '"\b\c"
+}
+
+
+if [ $answer != 'start' ];then
+    bash $path/scripts/bulid_pxe.sh $path
+    echo 'now you can turn on your all servers'
+    go_start 4500
+fi
+
+echo start find servers
+start=$(awk -F= '/range_start/{print $2}' $path/main.conf | sed 's/ //g')
+stop=$(awk -F= '/range_stop/{print $2}' $path/main.conf | sed 's/ //g')
+yum install -y nmap
+get=0
+while [ $get -ne 1 ]
+do
+    go_start 60 &
+    if [ $(nmap -sP ${start%.*}.${start##*.}-${stop##*.} | tail -1 | awk '{print $6}') != '(0' ];then
+        get=1
+    fi
+done
+
+echo I have found one server
+go_start 450
+kill $!
+echo I have waited 3 min
+bash $path/scripts/start.sh $path

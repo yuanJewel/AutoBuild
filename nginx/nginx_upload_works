@@ -1,0 +1,11 @@
+#!/bin/bash
+CPU=${1:-'2'}
+bf=${2:-'65536'}
+path=/etc/nginx
+sed -in '/worker_processes/c worker_processes  '$CPU';' $path/main.conf
+sed -in '/worker_connections/s/[0-9]\{1,\}/'$bf'/' $path/main.conf
+ulimit -Hn $[bf+1000]
+ulimit -Sn $[bf+1000]
+sed -in '/#\*               soft/i*               soft    nofile            '$[bf+1000] /etc/security/limits.conf 
+sed -in '/#\*               soft/i*               hard    nofile            '$[bf+1000] /etc/security/limits.conf 
+
