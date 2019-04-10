@@ -29,7 +29,9 @@ var (
 	vip string
 )
 
-var complete chan int = make(chan int)
+var master_complete chan int = make(chan int)
+var candicate_complete chan int = make(chan int)
+var slave_complete chan int = make(chan int)
 
 func connect(user, password, host, key string, port int, cipherList []string) (*ssh.Session, error) {
 	var (
@@ -169,7 +171,9 @@ func buildMaster() {
 		}
 	}
 
-	cmd := "ln -s /work/servers/mysql/bin/mysqlbinlog /usr/local/bin/mysqlbinlog;" +
+	cmd := "yum install -y epel-release ;" +
+		"yum install -y http://120.92.156.238:8888/mha/mha4mysql-node.rpm ;" +
+		"ln -s /work/servers/mysql/bin/mysqlbinlog /usr/local/bin/mysqlbinlog;" +
 		"ln -s /work/servers/mysql/bin/mysql /usr/local/bin/mysql"
 
 	if err := sshDoShell(mip, cmd); err != nil {
@@ -177,10 +181,10 @@ func buildMaster() {
 	}
 
 	fmt.Printf("\n %c[1;40;32m%s%c[0m\n\n", 0x1B, "master keepalived is ready", 0x1B)
-	complete <- 0
+	master_complete <- 0
 }
 
-func buildSlave() {
+func buildCandicate() {
 	var slave_complete chan int = make(chan int)
 	priority := 100
 
@@ -214,21 +218,42 @@ func buildSlave() {
 					log.Panic(err)
 				}
 			}
-			cmd := "ln -s /work/servers/mysql/bin/mysqlbinlog /usr/local/bin/mysqlbinlog;" +
+			cmd := "yum install -y epel-release ;" +
+				"yum install -y http://120.92.156.238:8888/mha/mha4mysql-node.rpm ;" +
+				"ln -s /work/servers/mysql/bin/mysqlbinlog /usr/local/bin/mysqlbinlog;" +
 				"ln -s /work/servers/mysql/bin/mysql /usr/local/bin/mysql"
 
 			if err := sshDoShell(f_ip, cmd); err != nil {
 				fmt.Printf("\n %c[1;40;33m%s%c[0m\n\n", 0x1B, f_ip+"'s mysql and mysqlbinlog are exist", 0x1B)
 			}
-			fmt.Println(f_ip + " slave keepalived is ready")
+			fmt.Println(f_ip + " candicate keepalived is ready")
 			slave_complete <- 0
 		}(ip)
 
 		<-slave_complete
 	}
 
+	fmt.Printf("\n %c[1;40;32m%s%c[0m\n\n", 0x1B, "All candicate keepalived is ready", 0x1B)
+	candicate_complete <- 0
+}
+
+func buildSlave() {
+	priority := 100
+
+	// 给每个从服务器配置
+	for _, ip := range strings.Split(sip, ",") {
+		priority -= 10
+		cmd := "yum install -y epel-release ;" +
+			"yum install -y http://120.92.156.238:8888/mha/mha4mysql-node.rpm;" +
+			"ln -s /work/servers/mysql/bin/mysqlbinlog /usr/local/bin/mysqlbinlog;" +
+			"ln -s /work/servers/mysql/bin/mysql /usr/local/bin/mysql"
+		if err := sshDoShell(ip, cmd); err != nil {
+			fmt.Printf("\n %c[1;40;33m%s%c[0m\n\n", 0x1B, ip+"'s mysql and mysqlbinlog are exist", 0x1B)
+		}
+	}
+
 	fmt.Printf("\n %c[1;40;32m%s%c[0m\n\n", 0x1B, "All slave keepalived is ready", 0x1B)
-	complete <- 0
+	slave_complete <- 0
 }
 
 // 执行shell命令
@@ -300,7 +325,7 @@ func buildMha() error {
 
 	// 判断是否安装，未安装则安装
 	if err := myCmd("/usr/bin/yum", "list", "mha4mysql-manager", "mha4mysql-node"); err != nil {
-		fmt.Println("just test error")
+		fmt.Println("start install mha4mysql")
 		if err := myCmd("/usr/bin/yum", "install", "-y", installUrl+"mha4mysql-manager.rpm",
 			installUrl+"mha4mysql-node.rpm"); err != nil {
 			return errors.New(err.Error() + " -- install mha error")
@@ -322,6 +347,10 @@ func buildMha() error {
 
 	if err := myCmd("/usr/bin/wget", installUrl+"master_ip_failover", "-O", "/work/sh/master_ip_failover"); err != nil {
 		return errors.New(err.Error() + " -- get shell file error")
+	}
+
+	if err := myCmd("/usr/bin/chmod", "755", "/work/sh/master_ip_failover"); err != nil {
+		return errors.New(err.Error() + " -- change user for shell file error")
 	}
 
 	//创建文件
@@ -392,20 +421,23 @@ func main() {
 	}
 
 	go buildMaster()
+	go buildCandicate()
 	go buildSlave()
 
 	if err := buildMha(); err != nil {
 		log.Panic(err)
 	}
 
-	<-complete
+	<-master_complete
+	<-candicate_complete
+	<-slave_complete
 
 	if err := startMha(); err != nil {
 		log.Panic(err)
 	}
 
 	fmt.Printf("\n %c[1;40;32m%s%c[0m\n\n", 0x1B, "Server for MasterHA is Ready! you can use this to start mha", 0x1B)
-	fmt.Printf("\n%c[1;40;36m%s%c[0m", 0x1B, "nohup masterha_manager --conf=/work/config/mha/mha.conf" +
+	fmt.Printf("\n%c[1;40;36m%s%c[0m", 0x1B, "nohup masterha_manager --conf=/work/config/mha/mha.conf"+
 		" --remove_dead_master_conf --ignore_last_failover < /dev/null > /work/logs/mha/mha.log 2>&1 &", 0x1B)
 	fmt.Printf("\n%c[1;40;36m%s%c[0m\n\n", 0x1B, "sleep 5 ; masterha_check_status --conf=/work/config/mha/mha.conf", 0x1B)
 }
