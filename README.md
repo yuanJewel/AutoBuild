@@ -1,5 +1,6 @@
-YZY AI Build
+AI_Build
 ===
+#### writer email adress: luyu151111@163.com
 
 自动化完成系统部署与创建，只需要一个控制机，即可将机房从裸机自动部署至只可以上线使用的环境
 
@@ -42,7 +43,7 @@ YZY AI Build
 | mysql_server | 设定mysql服务器的个数 | 0 |
 | falcon_server | 设定open-falcon服务是否部署 | 0:不启动 、 1:启动 |
 
-## lime light
+## Lime Light
 
 1. 如果实际服务器个数不足，会报错退出，如果实际服务器超出，则只会将没有分配到服务的服务器完成pxe装机而已
 2. 运行是基于从裸机开始部署，所以最好完整使用，防止运行出现
